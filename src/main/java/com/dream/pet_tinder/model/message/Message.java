@@ -1,6 +1,11 @@
 package com.dream.pet_tinder.model.message;
 
 import com.dream.pet_tinder.model.profile.Profile;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -8,12 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "message")
@@ -30,6 +30,6 @@ public class Message {
     @OneToOne(fetch = FetchType.EAGER)
     private Profile secondProfile;
     private String text;
-    private LocalDate time;
+    private long time;
     private Boolean isRead;
 }
