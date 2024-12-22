@@ -2,6 +2,7 @@ package com.dream.pet_tinder.model.address;
 
 import com.dream.pet_tinder.model.profile.Profile;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,6 +25,6 @@ public class Address {
     private Long id;
     private String country;
     private String city;
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Profile profile;
 }

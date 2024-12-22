@@ -1,7 +1,6 @@
 package com.dream.pet_tinder.controller;
 
 import com.dream.pet_tinder.dto.ProfileDto;
-import com.dream.pet_tinder.model.profile.Profile;
 import com.dream.pet_tinder.service.ProfileService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -10,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/profiles")
@@ -31,22 +32,30 @@ public class PetsProfileController {
     }
 
     @PostMapping("/new")
-    public String newProfile(final ProfileDto profile, final Model model) {
+    public String newProfile(final ProfileDto profile, final Model model) throws IOException {
         profileService.createNewProfile(profile);
-        return "redirect:profiles";
+        return "pets/profiles";
     }
 
     @GetMapping("/{id}")
     public String getProfile(@PathVariable Long id, final Model model) {
-        model.addAttribute("profile", profileService.getUserPetsProfile(id));
+        model.addAttribute("old_profile", profileService.getUserPetsProfile(id));
 
         return "pets/profile";
     }
 
     @PostMapping("/{id}")
-    public String updateProfile(@PathVariable Long id, Profile profile, final Model model) {
-        model.addAttribute("profile", profileService.updateUserPetsProfile(profile, id));
+    public String updateProfile(@PathVariable Long id, ProfileDto profile, final Model model) {
+        profileService.updateUserPetsProfile(profile, id);
 
-        return "pets/profile";
+        return "redirect:/profiles/" + id.toString();
+    }
+
+    @GetMapping("/{id}/photos")
+    public String getGallery(@PathVariable Long id, final Model model) {
+        model.addAttribute("photos", profileService.getProfilePhotos(id));
+        model.addAttribute("id", id);
+
+        return "pets/photos";
     }
 }

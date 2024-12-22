@@ -4,6 +4,7 @@ import com.dream.pet_tinder.model.profile.Profile;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,6 +28,6 @@ public class Characteristics {
     @Enumerated(value = EnumType.STRING)
     private Characteristic characteristicName;
     private String value;
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Profile profile;
 }

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface CharacteristicsRepository extends JpaRepository<Characteristics, Long> {
     List<Characteristics> findAllByProfile(Profile profile);
-
+    void deleteAllByProfile(Profile profile);
 }

@@ -12,52 +12,45 @@
 <body>
 
 <nav class="navbar navbar-dark bg-dark w-75 mx-auto mt-5 rounded-pill">
-    <div class="container-fluid">
+    <div class="container-fluid justify-content-between">
         <a class="navbar-brand">Pet tinder</a>
-
+        <form class="d-grid ms-auto me-2 gap-2" th:action="@{'/profiles/' + ${old_profile.id} + '/photos'}" th:method="get">
+            <input class="btn btn-primary" type="submit" value="Go to profile gallery">
+        </form>
         <form class="d-grid gap-2" th:action="@{/profiles}" th:method="get">
             <input class="btn btn-primary" type="submit" value="Go back">
         </form>
     </div>
 </nav>
 
-<form method="post" th:action="@{/profiles/new}" th:object="${profile}" enctype="multipart/form-data">
+<form method="post" th:action="@{'/profiles/' + ${old_profile.id}}" th:object="${profile}" enctype="multipart/form-data">
 
     <div class="mb-3 mx-auto mt-5" style="width: 20%">
         <label for="name" class="form-label">Name</label>
-        <input type="name" th:name="name" class="form-control" id="name">
+        <input type="name" th:name="name" th:value="${old_profile.name}" class="form-control" id="name">
     </div>
     <div class="mb-3 mx-auto" style="width: 20%">
         <label for="type" class="form-label">Type</label>
-        <input type="name" th:name="type" class="form-control" id="type">
+        <input type="name" th:name="type" th:value="${old_profile.type}" class="form-control" id="type">
     </div>
     <div class="mb-3 mx-auto" style="width: 20%">
         <label for="description" class="form-label">Description</label>
-        <input type="name" th:name="description" class="form-control" id="description">
+        <input type="name" th:name="description" th:value="${old_profile.description}" class="form-control" id="description">
     </div>
     <div class="mb-3 mx-auto" style="width: 20%">
         <label for="country" class="form-label">Country</label>
-        <input type="name" th:name="country" class="form-control" id="country">
+        <input type="name" th:name="country" th:value="${old_profile.country}" class="form-control" id="country">
     </div>
     <div class="mb-3 mx-auto" style="width: 20%">
         <label for="city" class="form-label">City</label>
-        <input type="name" th:name="city" class="form-control" id="city">
+        <input type="name" th:name="city" th:value="${old_profile.city}" class="form-control" id="city">
     </div>
     <div class="mb-3 mx-auto" style="width: 20%">
         <label for="custom" class="form-label">Custom tags</label>
-        <input type="text" th:name="custom" class="form-control" placeholder="Type tag then press enter" data-ub-tag-enter id="custom">
+        <input type="text" th:name="custom" th:value="${old_profile.outCustom}" class="form-control" data-ub-tag-enter id="custom">
     </div>
-    <div class="mb-3 mx-auto" style="width: 20%">
-        <label for="photo" class="form-label">Main image</label>
-        <input type="file" th:name="mainPhoto" class="form-control" id="photo">
-    </div>
-    <div class="mb-3 mx-auto" style="width: 20%">
-        <label for="photos" class="form-label">Profile images</label>
-        <input type="file" th:name="photos" class="form-control" id="photos" multiple>
-    </div>
-
     <div class="d-grid gap-2">
-        <input class="btn btn-primary mx-auto" type="submit" value="Create new profile" width="20%"/>
+        <input class="btn btn-primary mx-auto" type="submit" value="Update profile" width="20%"/>
     </div>
 </form>
 <script>
