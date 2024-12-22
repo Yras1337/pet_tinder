@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProfileService {
 
-    List<Profile> getUserPetsProfiles();
+    List<ProfileDto> getUserPetsProfiles();
 
     Profile getUserPetsProfile(Long id);
 

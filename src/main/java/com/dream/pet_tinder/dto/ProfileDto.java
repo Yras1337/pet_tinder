@@ -10,6 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProfileDto {
+    private String id;
     private String name;
     private String type;
     private String country;
@@ -18,4 +19,5 @@ public class ProfileDto {
     private List<String> custom;
     private byte[] mainPhoto;
     private List<byte[]> photos;
+    private String albumPhoto;
 }

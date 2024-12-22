@@ -7,6 +7,7 @@ import com.dream.pet_tinder.model.characteristics.Characteristics;
 import com.dream.pet_tinder.model.photo.Photo;
 import com.dream.pet_tinder.model.profile.Profile;
 import com.dream.pet_tinder.model.user.User;
+import com.dream.pet_tinder.repository.AddressRepository;
 import com.dream.pet_tinder.repository.CharacteristicsRepository;
 import com.dream.pet_tinder.repository.PhotoRepository;
 import com.dream.pet_tinder.repository.ProfileRepository;
@@ -15,6 +16,8 @@ import com.dream.pet_tinder.service.ProfileService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -25,12 +28,34 @@ public class ProfileServiceImpl implements ProfileService {
     private final CharacteristicsRepository characteristicsRepository;
     private final PhotoRepository photoRepository;
     private final AuthContextHandler authContextHandler;
+    private final AddressRepository addressRepository;
 
     @Override
-    public List<Profile> getUserPetsProfiles() {
+    public List<ProfileDto> getUserPetsProfiles() {
         User user = authContextHandler.getLoggedInUser();
+        List<Profile> profiles = profileRepository.findAllByOwner(user);
+        List<ProfileDto> profileDtos = new ArrayList<>();
 
-        return profileRepository.findAllByOwner(user);
+        for (Profile profile : profiles) {
+            List<Characteristics> characteristics = characteristicsRepository.findAllByProfile(profile);
+            String name = characteristics.stream()
+                    .filter(x -> x.getCharacteristicName().equals(Characteristic.NAME))
+                    .map(Characteristics::getValue).findFirst().orElseThrow(RuntimeException::new);
+
+            List<Photo> photos = photoRepository.findAllByProfile(profile);
+            byte[] imageData = photos.stream()
+                    .filter(Photo::isMain)
+                    .map(Photo::getImageData).findFirst().orElseThrow(RuntimeException::new);
+            String imageDataAsBase64 = Base64.getEncoder().encodeToString(imageData);
+
+            ProfileDto profileDto = new ProfileDto();
+            profileDto.setName(name);
+            profileDto.setId(profile.getId().toString());
+            profileDto.setAlbumPhoto(imageDataAsBase64);
+            profileDtos.add(profileDto);
+        }
+
+        return profileDtos;
     }
 
     @Override
@@ -41,7 +66,7 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public Profile updateUserPetsProfile(Profile profile, Long id) {
         Profile currentProfile = getUserPetsProfile(id);
-        currentProfile.setAddress(profile.getAddress());
+        //currentProfile.setAddress(profile.getAddress());
         currentProfile.setDescription(profile.getDescription());
 
         Profile newFather = profileRepository.getById(profile.getFather().getId());
@@ -57,13 +82,17 @@ public class ProfileServiceImpl implements ProfileService {
     public void createNewProfile(ProfileDto newProfile) {
         User user = authContextHandler.getLoggedInUser();
         Profile profile = new Profile();
+        profile.setOwner(user);
+        profile.setDescription(newProfile.getDescription());
+        profileRepository.save(profile);
+
         Address address = new Address();
         address.setProfile(profile);
         address.setCity(newProfile.getCity());
         address.setCountry(newProfile.getCountry());
-        profile.setAddress(address);
-        profile.setOwner(user);
-        profile.setDescription(newProfile.getDescription());
+        addressRepository.save(address);
+
+
         saveCharacteristic(profile, newProfile.getName(), Characteristic.NAME);
         saveCharacteristic(profile, newProfile.getType(), Characteristic.TYPE);
 
