@@ -17,8 +17,14 @@
         <form class="d-grid ms-auto me-2 gap-2" th:action="@{/recommendations/__${old_profile.id}__}" th:method="get">
             <input class="btn btn-primary" type="submit" value="Find match!">
         </form>
+        <form class="d-grid me-2 gap-2" th:action="@{/recommendations/__${old_profile.id}__/income_likes}" th:method="get">
+            <input class="btn btn-primary" type="submit" value="Watch income likes">
+        </form>
         <form class="d-grid me-2 gap-2" th:action="@{/profiles/__${old_profile.id}__/photos}" th:method="get">
             <input class="btn btn-primary" type="submit" value="Go to profile gallery">
+        </form>
+        <form class="d-grid me-2 gap-2" th:action="@{/chats/__${old_profile.id}__}" th:method="get">
+            <input class="btn btn-primary" type="submit" value="Chats">
         </form>
         <form class="d-grid gap-2" th:action="@{/profiles}" th:method="get">
             <input class="btn btn-primary" type="submit" value="Go back">

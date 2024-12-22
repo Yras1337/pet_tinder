@@ -12,8 +12,8 @@
     <div class="container-fluid">
         <a class="navbar-brand">Pet tinder</a>
 
-        <form class="d-grid gap-2" th:action="@{/profiles/__${our_profile}__}" th:method="get">
-            <input class="btn btn-primary" type="submit" value="Profile">
+        <form class="d-grid gap-2" th:action="@{/profiles}" th:method="get">
+            <input class="btn btn-primary" type="submit" value="Profiles">
         </form>
     </div>
 </nav>
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <form class="d-grid ms-auto mt-5 gap-2"
-                          th:action="@{/recommendations/__${our_profile}__/match/__${profile.id}__}"
+                          th:action="@{/recommendations/__${our_profile}__/income_likes/match/__${profile.id}__}"
                           th:method="post">
                         <div class="btn-group">
                             <button type="submit" class="btn btn-success active" th:name="flag"
