@@ -3,6 +3,7 @@ package com.dream.pet_tinder.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -10,14 +11,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProfileDto {
-    private String id;
+    private Long id;
     private String name;
     private String type;
     private String country;
     private String city;
     private String description;
     private List<String> custom;
-    private byte[] mainPhoto;
-    private List<byte[]> photos;
+    private MultipartFile mainPhoto;
+    private List<MultipartFile> photos;
     private String albumPhoto;
+    private String outCustom;
 }

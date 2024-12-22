@@ -12,22 +12,21 @@
     <div class="container-fluid">
         <a class="navbar-brand">Pet tinder</a>
 
-        <form class="d-grid gap-2" th:action="@{/profiles/new}" th:method="get">
-            <input class="btn btn-primary" type="submit" value="Create profile">
+        <form class="d-grid gap-2" th:action="@{'profiles/' + ${id}}" th:method="get">
+            <input class="btn btn-primary" type="submit" value="Back">
         </form>
     </div>
 </nav>
 <div class="album py-5 text-center">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <div th:each="profile : ${profiles}">
-                <a th:href="@{'profiles/' + ${profile.id}}">
+            <div th:each="photo : ${photos}">
                     <div class="fade-out-siblings">
                         <div class="col">
                             <div class="card shadow-sm">
-                                <img th:src="${'data:image;base64,' + profile.albumPhoto}" width="100%" height="100%" alt="">
+                                <img th:src="${'data:image;base64,' + photo.photo}" width="100%" height="100%" alt="">
                                 <div class="card-body">
-                                    <h4 class="card-text" th:text="${profile.name}"></h4>
+                                    ...
                                 </div>
                             </div>
                         </div>

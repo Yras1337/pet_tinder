@@ -2,6 +2,7 @@ package com.dream.pet_tinder.model.like;
 
 import com.dream.pet_tinder.model.profile.Profile;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,8 +23,8 @@ public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Profile firstProfile;
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Profile secondProfile;
 }

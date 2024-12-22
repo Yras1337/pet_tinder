@@ -2,6 +2,7 @@ package com.dream.pet_tinder.model.photo;
 
 import com.dream.pet_tinder.model.profile.Profile;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +23,7 @@ public class Photo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Profile profile;
     private boolean isMain;
     private byte[] imageData;

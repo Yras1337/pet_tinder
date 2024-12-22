@@ -1,17 +1,20 @@
 package com.dream.pet_tinder.service;
 
+import com.dream.pet_tinder.dto.PhotosDto;
 import com.dream.pet_tinder.dto.ProfileDto;
-import com.dream.pet_tinder.model.profile.Profile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ProfileService {
 
     List<ProfileDto> getUserPetsProfiles();
 
-    Profile getUserPetsProfile(Long id);
+    ProfileDto getUserPetsProfile(Long id);
 
-    Profile updateUserPetsProfile(Profile profile, Long id);
+    void updateUserPetsProfile(ProfileDto newProfile, Long id);
 
-    void createNewProfile(ProfileDto newProfile);
+    void createNewProfile(ProfileDto newProfile) throws IOException;
+
+    List<PhotosDto> getProfilePhotos(Long id);
 }

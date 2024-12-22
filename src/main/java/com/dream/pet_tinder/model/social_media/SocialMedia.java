@@ -2,6 +2,7 @@ package com.dream.pet_tinder.model.social_media;
 
 import com.dream.pet_tinder.model.profile.Profile;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,6 +25,6 @@ public class SocialMedia {
     private Long id;
     private MediaType mediaType;
     private String link;
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Profile profile;
 }
