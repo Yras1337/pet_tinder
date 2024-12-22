@@ -12,9 +12,11 @@ public interface ProfileService {
 
     ProfileDto getUserPetsProfile(Long id);
 
-    void updateUserPetsProfile(ProfileDto newProfile, Long id);
+    void updateUserPetsProfile(ProfileDto newProfile, Long id) throws IOException;
 
     void createNewProfile(ProfileDto newProfile) throws IOException;
 
     List<PhotosDto> getProfilePhotos(Long id);
+
+    void deletePhoto(Long id);
 }

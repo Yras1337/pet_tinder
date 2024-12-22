@@ -34,7 +34,7 @@ public class PetsProfileController {
     @PostMapping("/new")
     public String newProfile(final ProfileDto profile, final Model model) throws IOException {
         profileService.createNewProfile(profile);
-        return "pets/profiles";
+        return "redirect:/profiles";
     }
 
     @GetMapping("/{id}")
@@ -45,7 +45,7 @@ public class PetsProfileController {
     }
 
     @PostMapping("/{id}")
-    public String updateProfile(@PathVariable Long id, ProfileDto profile, final Model model) {
+    public String updateProfile(@PathVariable Long id, ProfileDto profile, final Model model) throws IOException {
         profileService.updateUserPetsProfile(profile, id);
 
         return "redirect:/profiles/" + id.toString();
@@ -57,5 +57,12 @@ public class PetsProfileController {
         model.addAttribute("id", id);
 
         return "pets/photos";
+    }
+
+    @PostMapping("/{id}/photos/delete/{pId}")
+    public String deletePhoto(@PathVariable Long id, @PathVariable Long pId) {
+        profileService.deletePhoto(pId);
+
+        return "redirect:/profiles/" + id.toString() + "/photos";
     }
 }
