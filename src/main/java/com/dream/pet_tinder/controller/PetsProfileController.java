@@ -33,7 +33,7 @@ public class PetsProfileController {
     @PostMapping("/new")
     public String newProfile(final ProfileDto profile, final Model model) {
         profileService.createNewProfile(profile);
-        return "pets/new_profile";
+        return "redirect:profiles";
     }
 
     @GetMapping("/{id}")

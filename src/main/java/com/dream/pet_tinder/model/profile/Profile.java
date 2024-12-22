@@ -30,7 +30,5 @@ public class Profile {
     private Profile mother;
     @OneToOne
     private Profile father;
-    @OneToOne
-    private Address address;
     private String description;
 }
