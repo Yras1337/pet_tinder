@@ -11,8 +11,7 @@ COPY src ./src
 # Собираем проект
 RUN mvn clean install
 
-# Используем образ с JRE для запуска приложения
-FROM openjdk:17-jre-slim
+FROM openjdk:17-slim
 
 # Копируем собранный .jar файл из предыдущего этапа
 COPY --from=build /app/target/pet_tinder-0.0.1-SNAPSHOT.jar /app/pet_tinder-0.0.1-SNAPSHOT.jar
