@@ -24,5 +24,6 @@ public class Photo {
     private Long id;
     @ManyToOne
     private Profile profile;
+    private boolean isMain;
     private byte[] imageData;
 }

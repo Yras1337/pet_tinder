@@ -1,5 +1,6 @@
 package com.dream.pet_tinder.controller;
 
+import com.dream.pet_tinder.dto.ProfileDto;
 import com.dream.pet_tinder.model.profile.Profile;
 import com.dream.pet_tinder.service.ProfileService;
 import lombok.AllArgsConstructor;
@@ -30,8 +31,8 @@ public class PetsProfileController {
     }
 
     @PostMapping("/new")
-    public String newProfile(final Profile profile, final Model model) {
-
+    public String newProfile(final ProfileDto profile, final Model model) {
+        profileService.createNewProfile(profile);
         return "pets/new_profile";
     }
 
