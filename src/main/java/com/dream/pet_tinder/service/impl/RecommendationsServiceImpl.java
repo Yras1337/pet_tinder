@@ -50,7 +50,7 @@ public class RecommendationsServiceImpl implements RecommendationsService {
         Long maximum = 0L;
         ProfileDto recomendedProfile = null;
         for (Profile p : potentialRecommendations) {
-            if (p.getId().equals(profile.getId()) || viewedProfilesIds.contains(profile.getId())) {
+            if (p.getId().equals(profile.getId()) || viewedProfilesIds.contains(profile.getId()) || profile.getOwner().getId().equals(p.getOwner().getId())) {
                 continue;
             }
 
