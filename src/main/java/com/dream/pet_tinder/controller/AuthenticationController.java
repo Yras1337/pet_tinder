@@ -27,28 +27,28 @@ public class AuthenticationController {
         return "auth/auth";
     }
 
-    @GetMapping("/profile")
-    public String profile(final Model model) {
-        User user = authContextHandler.getLoggedInUser();
-        model.addAttribute("user", user);
-        model.addAttribute("result", null);
-        return "main/profile";
-    }
-
-    @PostMapping("/profile")
-    public String updateProfile(final Model model, PasswordChangeDTO passwordChangeDTO) {
-        String result = "Password changed successfully";
-        try {
-            authContextHandler.changePassword(passwordChangeDTO);
-        } catch(PasswordChangeException | AuthException e) {
-            result = e.getMessage();
-        }
-        User user = authContextHandler.getLoggedInUser();
-        model.addAttribute("user", user);
-        model.addAttribute("result", result);
-
-        return "main/profile";
-    }
+//    @GetMapping("/profile")
+//    public String profile(final Model model) {
+//        User user = authContextHandler.getLoggedInUser();
+//        model.addAttribute("user", user);
+//        model.addAttribute("result", null);
+//        return "main/profile";
+//    }
+//
+//    @PostMapping("/profile")
+//    public String updateProfile(final Model model, PasswordChangeDTO passwordChangeDTO) {
+//        String result = "Password changed successfully";
+//        try {
+//            authContextHandler.changePassword(passwordChangeDTO);
+//        } catch(PasswordChangeException | AuthException e) {
+//            result = e.getMessage();
+//        }
+//        User user = authContextHandler.getLoggedInUser();
+//        model.addAttribute("user", user);
+//        model.addAttribute("result", result);
+//
+//        return "main/profile";
+//    }
 
     @GetMapping("/login")
     public String login() {
@@ -68,8 +68,10 @@ public class AuthenticationController {
         } catch(AuthException e) {
             result = e.getMessage();
         }
+        if (result == "successful"){
+            return "redirect:login";
+        }
         model.addAttribute("result", result);
-
         return "auth/register";
     }
 }

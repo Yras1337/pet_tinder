@@ -43,4 +43,10 @@ public class ProfileServiceImpl implements ProfileService {
 
         return currentProfile;
     }
+
+    @Override
+    public void createNewProfile(Profile profile) {
+        User user = authContextHandler.getLoggedInUser();
+
+    }
 }

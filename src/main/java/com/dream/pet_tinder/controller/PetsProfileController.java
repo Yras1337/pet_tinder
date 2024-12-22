@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("profiles/")
+@RequestMapping("/profiles")
 @AllArgsConstructor
-public class ProfileController {
+public class PetsProfileController {
 
     private final ProfileService profileService;
 
@@ -21,20 +21,31 @@ public class ProfileController {
     public String getProfiles(final Model model) {
         model.addAttribute("profiles", profileService.getUserPetsProfiles());
 
-        return "profile/profiles";
+        return "pets/profiles";
+    }
+
+    @GetMapping("/new")
+    public String newProfile() {
+        return "pets/new_profile";
+    }
+
+    @PostMapping("/new")
+    public String newProfile(final Profile profile, final Model model) {
+
+        return "pets/new_profile";
     }
 
     @GetMapping("/{id}")
     public String getProfile(@PathVariable Long id, final Model model) {
         model.addAttribute("profile", profileService.getUserPetsProfile(id));
 
-        return "profile/profile";
+        return "pets/profile";
     }
 
     @PostMapping("/{id}")
     public String updateProfile(@PathVariable Long id, Profile profile, final Model model) {
         model.addAttribute("profile", profileService.updateUserPetsProfile(profile, id));
 
-        return "profile/profile";
+        return "pets/profile";
     }
 }

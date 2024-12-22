@@ -11,4 +11,5 @@ public interface ProfileService {
     Profile getUserPetsProfile(Long id);
 
     Profile updateUserPetsProfile(Profile profile, Long id);
+    void createNewProfile(Profile profile);
 }
