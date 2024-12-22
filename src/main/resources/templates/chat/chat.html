@@ -55,14 +55,12 @@
         var sender = document.getElementById('buttonId').dataset.sender;
         var recipient = document.getElementById('buttonId').dataset.recipient;
 
-        // Fetch messages using AJAX
         $.get('/api/messages/' + sender + '/' + recipient , function (messages) {
             var chatMessages = $('#chat-messages');
             chatMessages.empty();
 
-            // Display messages in the chat area
             messages.forEach(function (message) {
-                chatMessages.append('<p><strong>' + message.message + '</p>');
+                chatMessages.append('<p><strong>' + message.author + ':</strong> ' + message.message + '</p>');
             });
         });
     }
@@ -90,9 +88,8 @@
         });
     }
 
-    // Fetch messages initially and set up polling
     fetchMessages();
-    setInterval(fetchMessages, 5000); // Poll every 5 seconds
+    setInterval(fetchMessages, 5000);
 </script>
 </body>
 </html>

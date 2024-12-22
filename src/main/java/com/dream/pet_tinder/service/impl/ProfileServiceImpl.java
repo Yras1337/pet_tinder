@@ -126,7 +126,7 @@ public class ProfileServiceImpl implements ProfileService {
 
 
         List<Photo> photos = photoRepository.findAllByProfile(profile);
-        if (Objects.nonNull(newProfile.getMainPhoto())) {
+        if (Objects.nonNull(newProfile.getMainPhoto()) && !newProfile.getMainPhoto().isEmpty()) {
             Photo photo = photos.stream().filter(Photo::isMain).findFirst().orElseThrow(RuntimeException::new);
             photo.setImageData(newProfile.getMainPhoto().getBytes());
             photoRepository.save(photo);

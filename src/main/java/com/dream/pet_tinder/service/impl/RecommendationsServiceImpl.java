@@ -136,6 +136,7 @@ public class RecommendationsServiceImpl implements RecommendationsService {
             firstMessage.setText("Match!");
             firstMessage.setIsRead(false);
             firstMessage.setTime(System.currentTimeMillis());
+            firstMessage.setSender(firstProfile);
 
             Message secondMessage = new Message();
             secondMessage.setFirstProfile(secondProfile);
@@ -143,6 +144,7 @@ public class RecommendationsServiceImpl implements RecommendationsService {
             secondMessage.setText("Match!");
             secondMessage.setIsRead(false);
             secondMessage.setTime(System.currentTimeMillis());
+            secondMessage.setSender(firstProfile);
 
             messageRepository.save(firstMessage);
             messageRepository.save(secondMessage);

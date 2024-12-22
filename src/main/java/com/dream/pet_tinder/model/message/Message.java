@@ -29,6 +29,8 @@ public class Message {
     private Profile firstProfile;
     @OneToOne(fetch = FetchType.EAGER)
     private Profile secondProfile;
+    @OneToOne(fetch = FetchType.EAGER)
+    private Profile sender;
     private String text;
     private long time;
     private Boolean isRead;
