@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <a class="navbar-brand">Pet tinder</a>
 
-        <form class="d-grid gap-2" th:action="@{'profiles/' + ${id}}" th:method="get">
+        <form class="d-grid gap-2" th:action="@{/profiles/__${id}__}" th:method="get">
             <input class="btn btn-primary" type="submit" value="Back">
         </form>
     </div>
@@ -21,14 +21,14 @@
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <div th:each="photo : ${photos}">
-                <div class="fade-out-siblings">
+                <div class="fade-out-siblings" >
                     <div class="col">
-                        <div class="card shadow-sm">
+                        <div class="card shadow-sm" style="height: 350px;">
                             <img th:src="${'data:image;base64,' + photo.photo}" width="100%" height="100%" alt="">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <form class="d-grid gap-2 mx-auto"
-                                          th:action="@{'profiles/photo/delete' + ${photo.photoId}}" th:method="post">
+                                          th:action="@{/profiles/__${id}__/photos/delete/__${photo.photoId}__}" th:method="post">
                                         <input class="btn btn-primary" type="submit" value="Delete">
                                     </form>
                                 </div>
@@ -36,7 +36,6 @@
                         </div>
                     </div>
                 </div>
-                </a>
             </div>
         </div>
     </div>

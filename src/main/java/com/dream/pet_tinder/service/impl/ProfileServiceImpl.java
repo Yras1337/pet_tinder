@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -105,7 +104,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     @Transactional
-    public void updateUserPetsProfile(ProfileDto newProfile, Long id) {
+    public void updateUserPetsProfile(ProfileDto newProfile, Long id) throws IOException {
         Profile profile = profileRepository.findProfileById(id);
         profile.setDescription(newProfile.getDescription());
         profileRepository.save(profile);
@@ -122,6 +121,20 @@ public class ProfileServiceImpl implements ProfileService {
         if (Objects.nonNull(newProfile.getCustom())) {
             for (String characteristic : newProfile.getCustom()) {
                 saveCharacteristic(profile, characteristic, Characteristic.CUSTOM);
+            }
+        }
+
+
+        List<Photo> photos = photoRepository.findAllByProfile(profile);
+        if (Objects.nonNull(newProfile.getMainPhoto())) {
+            Photo photo = photos.stream().filter(Photo::isMain).findFirst().orElseThrow(RuntimeException::new);
+            photo.setImageData(newProfile.getMainPhoto().getBytes());
+            photoRepository.save(photo);
+        }
+
+        for (MultipartFile newPhoto : newProfile.getPhotos()) {
+            if (!newPhoto.isEmpty()) {
+                savePhoto(profile, newPhoto.getBytes(), false);
             }
         }
     }
@@ -160,7 +173,7 @@ public class ProfileServiceImpl implements ProfileService {
         Profile profile = profileRepository.findProfileById(id);
         List<Photo> photos = photoRepository.findAllByProfile(profile);
         List<PhotosDto> photosDtos = new ArrayList<>();
-        for (Photo photo: photos) {
+        for (Photo photo : photos) {
             if (photo.isMain()) {
                 continue;
             }
@@ -171,6 +184,12 @@ public class ProfileServiceImpl implements ProfileService {
         }
 
         return photosDtos;
+    }
+
+    @Override
+    @Transactional
+    public void deletePhoto(Long id) {
+        photoRepository.deleteAllPhotoById(id);
     }
 
     private void saveCharacteristic(Profile profile, String newCharacteristic, Characteristic type) {

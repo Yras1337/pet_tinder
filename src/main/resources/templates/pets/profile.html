@@ -14,7 +14,10 @@
 <nav class="navbar navbar-dark bg-dark w-75 mx-auto mt-5 rounded-pill">
     <div class="container-fluid justify-content-between">
         <a class="navbar-brand">Pet tinder</a>
-        <form class="d-grid ms-auto me-2 gap-2" th:action="@{'/profiles/' + ${old_profile.id} + '/photos'}" th:method="get">
+        <form class="d-grid ms-auto me-2 gap-2" th:action="@{/recommendations/__${old_profile.id}__}" th:method="get">
+            <input class="btn btn-primary" type="submit" value="Find match!">
+        </form>
+        <form class="d-grid me-2 gap-2" th:action="@{/profiles/__${old_profile.id}__/photos}" th:method="get">
             <input class="btn btn-primary" type="submit" value="Go to profile gallery">
         </form>
         <form class="d-grid gap-2" th:action="@{/profiles}" th:method="get">
@@ -23,7 +26,7 @@
     </div>
 </nav>
 
-<form method="post" th:action="@{'/profiles/' + ${old_profile.id}}" th:object="${profile}" enctype="multipart/form-data">
+<form method="post" th:action="@{/profiles/__${old_profile.id}__}" th:object="${profile}" enctype="multipart/form-data">
 
     <div class="mb-3 mx-auto mt-5" style="width: 20%">
         <label for="name" class="form-label">Name</label>
@@ -49,6 +52,15 @@
         <label for="custom" class="form-label">Custom tags</label>
         <input type="text" th:name="custom" th:value="${old_profile.outCustom}" class="form-control" data-ub-tag-enter id="custom">
     </div>
+    <div class="mb-3 mx-auto" style="width: 20%">
+        <label for="photo" class="form-label">Choose avatar</label>
+        <input type="file" th:name="mainPhoto" class="form-control" id="photo">
+    </div>
+    <div class="mb-3 mx-auto" style="width: 20%">
+        <label for="photos" class="form-label">Add photos to gallery</label>
+        <input type="file" th:name="photos" class="form-control" id="photos" multiple>
+    </div>
+
     <div class="d-grid gap-2">
         <input class="btn btn-primary mx-auto" type="submit" value="Update profile" width="20%"/>
     </div>
