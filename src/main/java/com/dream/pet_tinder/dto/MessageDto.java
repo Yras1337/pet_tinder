@@ -12,4 +12,5 @@ public class MessageDto {
     private String message;
     private Long sender;
     private Long recipient;
+    private String author;
 }
